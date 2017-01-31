@@ -1,0 +1,21 @@
+doctype html
+html lang='ru'
+  head
+    meta charset='utf-8'
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title= "TeachBase Api Client"
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+  body
+    nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed type='button' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          = link_to 'TeachBase Api', root_path, class: 'navbar-brand'
+    #content-wrapper
+      .container
+        = yield
