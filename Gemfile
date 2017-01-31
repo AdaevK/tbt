@@ -10,6 +10,9 @@ gem 'rails', '~> 5.0.1'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'dotenv-rails'
+gem 'httparty'
+gem 'rest-client'
+gem 'oj'
 
 gem 'slim-rails'
 
@@ -59,6 +62,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
+  gem "fakeweb"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

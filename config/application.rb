@@ -25,5 +25,9 @@ module TeachbaseTest
     config.generators.assets     = false
     config.generators.helper     = false
     config.generators.decorator  = false
+
+    config.autoload_paths += %w(
+      #{config.root}/services
+    )
   end
 end
