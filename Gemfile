@@ -16,6 +16,8 @@ gem 'oj'
 gem 'virtus'
 gem 'redis'
 gem 'redis-objects'
+gem 'sidekiq'
+gem 'whenever', require: false
 
 gem 'slim-rails'
 

@@ -31,5 +31,7 @@ module TeachbaseTest
       #{config.root}/forms
       #{config.root}/services
     )
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end
