@@ -8,6 +8,9 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'database_cleaner'
 
+require 'capybara/rails'
+require 'capybara/rspec'
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!

@@ -1,2 +1,18 @@
-h1 Courses#index
-p Find me in app/views/courses/index.html.slim
+- unless @courses_form.message.blank?
+  .row
+    .alert
+      = @courses_form.message
+
+.row
+  - if @courses_form.items.present?
+    ul.list
+      - @courses_form.items.each do |item|
+        li.list-item
+          h1= link_to item.name, item.apply_url
+          p= "#{item.started_at.strftime("%d.%m.%Y")} - #{item.finished_at.strftime("%d.%m.%Y")}" if item.started_at && item.finished_at
+          - if course = item.course
+            - unless course.thumb_url.blank?
+              = link_to image_tag(course.thumb_url), item.apply_url, class: 'image'
+              .info
+                p= course.name
+                p= course.description

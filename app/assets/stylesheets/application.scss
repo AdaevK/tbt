@@ -20,3 +20,20 @@
 #content-wrapper {
   padding-top: 70px;
 }
+
+.list {
+  list-style: none;
+
+  .list-item {
+    border-bottom: 1px solid #c2c2c2;
+    padding-bottom: 15px;
+  }
+}
+
+.image, .info {
+  display: inline-block;
+}
+
+.info {
+  padding-left: 20px;
+}
