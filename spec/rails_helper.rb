@@ -64,4 +64,15 @@ RSpec.configure do |config|
   config.before :each do
     DatabaseCleaner.clean
   end
+
+  config.before :all do
+    Redis.current = Redis.new \
+      host: ENV.fetch('STARTTRACK_REDIS_HOST', 'localhost'),
+      port: ENV.fetch('STARTTRACK_REDIS_PORT', 6379).to_i,
+      db: 15
+  end
+
+  config.after :each do
+    Redis.current.flushdb
+  end
 end

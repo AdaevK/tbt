@@ -1,0 +1,6 @@
+ru:
+  courses_form:
+    messages:
+      invalid_auth: "Ошибка авторизации"
+      response_invalid: "В данный момент Teachbase недоступен. Загружена копия от %{date}"
+      server_broken: "Teachbase лежит уже %{hours} часов"

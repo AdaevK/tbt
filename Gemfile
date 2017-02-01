@@ -10,9 +10,12 @@ gem 'rails', '~> 5.0.1'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'dotenv-rails'
+
 gem 'httparty'
-gem 'rest-client'
 gem 'oj'
+gem 'virtus'
+gem 'redis'
+gem 'redis-objects'
 
 gem 'slim-rails'
 

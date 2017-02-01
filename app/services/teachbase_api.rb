@@ -4,9 +4,9 @@ class TeachbaseApi
 
   attr_reader :access_token, :status_code
 
-  def get
+  def get options = { access_type: 'open' }
     if authorize
-      response = self.class.get('/endpoint/v1/course_sessions', headers: { 'Authorization' => "Bearer #{access_token}" })
+      response = self.class.get('/endpoint/v1/course_sessions', headers: { 'Authorization' => "Bearer #{access_token}" }, body: options)
       @status_code = response.code
 
       { body: Oj.load(response.body), status_code: status_code }
