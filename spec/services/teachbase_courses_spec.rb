@@ -25,7 +25,7 @@ RSpec.describe TeachbaseCourses do
 
     before do
       subject.set_body(courses)
-      allow_any_instance_of(TeachbaseApi).to receive(:course_sessions).and_return(request_data)
+      class_double(Teachbase::Api, course_sessions: request_data).as_stubbed_const
     end
 
     context 'if response success' do

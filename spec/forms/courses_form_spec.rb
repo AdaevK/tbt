@@ -13,7 +13,7 @@ RSpec.describe CoursesForm do
     before do
       info
       info.set_body(courses)
-      allow_any_instance_of(TeachbaseApi).to receive(:course_sessions).and_return({ body: new_courses, status_code: 200 })
+      class_double(Teachbase::Api, course_sessions: { body: new_courses, status_code: 200 }).as_stubbed_const
       subject.get
     end
 
@@ -36,7 +36,7 @@ RSpec.describe CoursesForm do
       before do
         info
         info.set_body(courses)
-        allow_any_instance_of(TeachbaseApi).to receive(:course_sessions).and_return({ body: nil, status_code: 500 })
+        class_double(Teachbase::Api, course_sessions: { body: nil, status_code: 500 }).as_stubbed_const
         subject.get
       end
 
@@ -47,7 +47,7 @@ RSpec.describe CoursesForm do
     context 'if TeachbaseCourses body empty' do
       before do
         info
-        allow_any_instance_of(TeachbaseApi).to receive(:course_sessions).and_return({ body: nil, status_code: 500 })
+        class_double(Teachbase::Api, course_sessions: { body: nil, status_code: 500 }).as_stubbed_const
         subject.get
       end
 
@@ -62,7 +62,7 @@ RSpec.describe CoursesForm do
         tb.updated_at = DateTime.now - hours
         tb.server_broken = true
         info
-        allow_any_instance_of(TeachbaseApi).to receive(:course_sessions).and_return({ body: nil, status_code: 200 })
+        class_double(Teachbase::Api, course_sessions: { body: nil, status_code: 200 }).as_stubbed_const
         subject.get
       end
 
@@ -73,7 +73,7 @@ RSpec.describe CoursesForm do
     context 'if not authenticate' do
       before do
         info
-        allow_any_instance_of(TeachbaseApi).to receive(:course_sessions).and_return({ body: nil, status_code: 401 })
+        class_double(Teachbase::Api, course_sessions: { body: nil, status_code: 401 }).as_stubbed_const
         subject.get
       end
 
