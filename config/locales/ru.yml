@@ -1,6 +1,11 @@
 ru:
-  courses_form:
-    messages:
-      invalid_auth: "Ошибка авторизации"
-      response_invalid: "В данный момент Teachbase недоступен. Загружена копия от %{date}"
-      server_broken: "Teachbase лежит уже %{hours} часов"
+  activemodel:
+    errors:
+      models:
+        courses_form:
+          attributes:
+            base:
+              invalid_auth: "Ошибка авторизации"
+              response_invalid_with_date: "В данный момент Teachbase недоступен. Загружена копия от %{date}"
+              response_invalid: "В данный момент Teachbase недоступен."
+              server_broken: "Teachbase лежит уже %{hours} часов"

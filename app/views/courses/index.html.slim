@@ -1,7 +1,10 @@
-- unless @courses_form.message.blank?
+- if @courses_form.errors.has_key?(:base)
   .row
-    .alert
-      = @courses_form.message
+    .alert.alert-danger
+      ul
+        - @courses_form.errors[:base].each do |message|
+          li
+            = message
 
 .row
   - if @courses_form.items.present?

@@ -18,7 +18,7 @@ RSpec.describe CoursesForm do
     end
 
     it{ expect(subject.items.count).to eq new_courses.count }
-    its(:message){ is_expected.to be_nil }
+    it{ expect(subject.errors.messages.empty?).to be_truthy }
     it{ expect(info.body.value).to eq Oj.dump(new_courses) }
 
     context 'unless first page' do
@@ -33,6 +33,7 @@ RSpec.describe CoursesForm do
     let(:courses) { Oj.load(File.read("spec/fixtures/courses.json")) }
 
     context 'if TeachbaseCourses body not empty' do
+      let(:error_message) { I18n.t('activemodel.errors.models.courses_form.attributes.base.response_invalid_with_date', date: info.get_updated_at.strftime("%d.%m.%Y %H:%M")) }
       before do
         info
         info.set_body(courses)
@@ -41,7 +42,7 @@ RSpec.describe CoursesForm do
       end
 
       it{ expect(subject.items.count).to eq courses.count }
-      its(:message){ is_expected.to eq I18n.t('courses_form.messages.response_invalid', date: info.get_updated_at.strftime("%d.%m.%Y %H:%M")) }
+      it{ expect(subject.errors.messages[:base]).to be_include(error_message) }
     end
 
     context 'if TeachbaseCourses body empty' do
@@ -52,6 +53,7 @@ RSpec.describe CoursesForm do
       end
 
       it{ expect(subject.items).to be_nil }
+      it_behaves_like "check_error_message", :base, I18n.t('activemodel.errors.models.courses_form.attributes.base.response_invalid')
     end
 
     context 'if server broken' do
@@ -67,7 +69,7 @@ RSpec.describe CoursesForm do
       end
 
       it{ expect(subject.items.count).to eq courses.count }
-      its(:message){ is_expected.to eq I18n.t('courses_form.messages.server_broken', hours: (hours / 3600).round) }
+      it_behaves_like "check_error_message", :base, I18n.t('activemodel.errors.models.courses_form.attributes.base.server_broken', hours: (10.hours / 3600).round)
     end
 
     context 'if not authenticate' do
@@ -78,7 +80,7 @@ RSpec.describe CoursesForm do
       end
 
       it{ expect(subject.items).to be_nil }
-      its(:message){ is_expected.to eq I18n.t('courses_form.messages.invalid_auth') }
+      it_behaves_like "check_error_message", :base, I18n.t('activemodel.errors.models.courses_form.attributes.base.invalid_auth')
     end
   end
 end

@@ -38,6 +38,7 @@ RSpec.describe TeachbaseCourses do
 
         it{ expect(subject.body.value).to eq Oj.dump(new_courses) }
 
+        its(:invalid_authentication?){ is_expected.to be_falsy }
         its(:response_invalid?){ is_expected.to be_falsy }
         its(:server_broken?){ is_expected.to be_falsy }
       end
@@ -52,6 +53,8 @@ RSpec.describe TeachbaseCourses do
         before { subject.get }
 
         it{ expect(subject.server_broken.value).to eq "true" }
+
+        its(:invalid_authentication?){ is_expected.to be_falsy }
         its(:response_invalid?){ is_expected.to be_truthy }
         its(:server_broken?){ is_expected.to be_falsy }
       end
@@ -67,6 +70,7 @@ RSpec.describe TeachbaseCourses do
       describe 'states after call' do
         before { subject.get }
 
+        its(:invalid_authentication?){ is_expected.to be_falsy }
         its(:response_invalid?){ is_expected.to be_falsy }
         its(:server_broken?){ is_expected.to be_truthy }
       end
@@ -80,6 +84,7 @@ RSpec.describe TeachbaseCourses do
       describe 'states after call' do
         before { subject.get }
 
+        its(:invalid_authentication?){ is_expected.to be_truthy }
         its(:response_invalid?){ is_expected.to be_falsy }
         its(:server_broken?){ is_expected.to be_falsy }
       end

@@ -32,6 +32,10 @@ class TeachbaseCourses
     # response[:body]
   end
 
+  def invalid_authentication?
+    status.value == '401'
+  end
+
   # Проверка на удачность запроса
   def response_invalid?
     not server_broken? and not ['200', '401'].include?(status.value)
@@ -54,7 +58,11 @@ class TeachbaseCourses
   end
 
   def get_updated_at
-    DateTime.parse(self.updated_at)
+    begin self.updated_at.value
+      DateTime.parse(self.updated_at.value)
+    rescue
+      nil
+    end
   end
 
   private
