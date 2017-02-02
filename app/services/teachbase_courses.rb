@@ -67,7 +67,7 @@ class TeachbaseCourses
           { body: load_items(self.body.value) }
         else
           # Выполняем запрос к серверу
-          result = TeachbaseApi.new.get page: page, access_type: access_type
+          result = TeachbaseApi.new.course_sessions page: page, access_type: access_type
           # Если запрос неудачный, берем старую копию
           result[:body] = load_items(self.body.value) if result[:status_code] != 200
           result

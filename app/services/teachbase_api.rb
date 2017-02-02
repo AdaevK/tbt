@@ -4,18 +4,27 @@ class TeachbaseApi
 
   attr_reader :access_token, :status_code
 
-  def get options = { access_type: 'open' }
-    if authorize
-      response = self.class.get('/endpoint/v1/course_sessions', headers: { 'Authorization' => "Bearer #{access_token}" }, body: options)
-      @status_code = response.code
-
-      { body: Oj.load(response.body), status_code: status_code }
-    else
-      { body: nil, status_code: status_code }
-    end
+  def course_sessions options = { access_type: 'open' }
+    call(:get, '/endpoint/v1/course_sessions', body: options)
   end
 
   private
+
+    def call method, path, header: {}, body: {}
+      params = {
+        headers: header.merge({ 'Authorization' => "Bearer #{access_token}" }),
+        body: body
+      }
+
+      if authorize
+        response = self.class.send(method, path, params)
+        @status_code = response.code
+
+        { body: Oj.load(response.body), status_code: status_code }
+      else
+        { body: nil, status_code: status_code }
+      end
+    end
 
     def authorize
       response = self.class.post('/oauth/token',

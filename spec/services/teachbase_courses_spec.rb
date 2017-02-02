@@ -25,7 +25,7 @@ RSpec.describe TeachbaseCourses do
 
     before do
       subject.set_body(courses)
-      allow_any_instance_of(TeachbaseApi).to receive(:get).and_return(request_data)
+      allow_any_instance_of(TeachbaseApi).to receive(:course_sessions).and_return(request_data)
     end
 
     context 'if response success' do

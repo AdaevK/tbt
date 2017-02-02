@@ -38,7 +38,7 @@ RSpec.describe TeachbaseApi do
     end
   end
 
-  context "teachbase success get courses" do
+  context "teachbase success course sessions" do
     let(:access_token) { "7ff6c974b5299b1ecf83f4861ba35108832c34d43d3645f6f4268a0eef612193" }
     let(:courses) { File.read("spec/fixtures/courses.json") }
 
@@ -47,10 +47,10 @@ RSpec.describe TeachbaseApi do
       FakeWeb.register_uri(:get, 'http://s1.teachbase.ru/endpoint/v1/course_sessions', body: courses, status: ["200", "OK"])
     end
 
-    its(:get) { is_expected.to eq({ body: Oj.load(courses), status_code: 200 }) }
+    its(:course_sessions) { is_expected.to eq({ body: Oj.load(courses), status_code: 200 }) }
   end
 
-  context "teachbase fail get courses" do
+  context "teachbase fail course sesions" do
     let(:access_token) { "7ff6c974b5299b1ecf83f4861ba35108832c34d43d3645f6f4268a0eef612193" }
 
     before do
@@ -58,13 +58,13 @@ RSpec.describe TeachbaseApi do
       FakeWeb.register_uri(:get, 'http://s1.teachbase.ru/endpoint/v1/course_sessions', body: "{\"error\": \"Internal Server Error\"}", status: ["500", "Internal Server Error"])
     end
 
-    its(:get) { is_expected.to include({ status_code: 500 }) }
+    its(:course_sessions) { is_expected.to include({ status_code: 500 }) }
   end
 
-  context "teachbase not authorize for get courses" do
+  context "teachbase not authorize for course session" do
 
     before{ FakeWeb.register_uri(:post, 'http://s1.teachbase.ru/oauth/token', body: "{\"error\": \"invalid_request\", \"error_description\": \"translation missing: ru.doorkeeper.errors.messages.invalid_request\"}", status: ["401", "Unauthorized"]) }
 
-    its(:get) { is_expected.to eq({ body: nil, status_code: 401 }) }
+    its(:course_sessions) { is_expected.to eq({ body: nil, status_code: 401 }) }
   end
 end
